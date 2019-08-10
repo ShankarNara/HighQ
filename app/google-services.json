@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "698320387920",
+    "firebase_url": "https://highq-a6189.firebaseio.com",
+    "project_id": "highq-a6189",
+    "storage_bucket": "highq-a6189.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698320387920:android:642dfaa39bc8b36a",
+        "android_client_info": {
+          "package_name": "com.example.highq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698320387920-7lp3nmdsv3e4lvuhv5ceurhass8ftcli.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.highq",
+            "certificate_hash": "541dfbc0a8986ef8546d5d5b1f2a503eb0d9394f"
+          }
+        },
+        {
+          "client_id": "698320387920-06vdv5kmpivibg102leaqc0jendoofu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBahkqyAmjqlFgu4SIl4S78Q7XxiH5DakQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698320387920-06vdv5kmpivibg102leaqc0jendoofu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
