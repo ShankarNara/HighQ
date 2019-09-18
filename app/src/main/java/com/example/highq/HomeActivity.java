@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -55,9 +56,18 @@ public class HomeActivity extends AppCompatActivity {
 
         adapter = new TopicListAdapter(this,topicList);
 
-        listView = findViewById(R.id.testview);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-        listView.setAdapter(adapter);
+                listView = findViewById(R.id.testview);
+
+                listView.setAdapter(adapter);
+            }
+        },3000);
+
+
     }
 
     public void onRetrieveData(){
