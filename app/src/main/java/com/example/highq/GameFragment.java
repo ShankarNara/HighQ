@@ -1,6 +1,7 @@
 package com.example.highq;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,11 @@ public class GameFragment extends Fragment {
     public TextView optionC;
     public  TextView optionD;
 
+
+
+    int red,green;
     String correct,questionText,opA,opB,opC,opD;
+    String userAnswer;
     gameInterface listener;
 
     public interface gameInterface{
@@ -29,6 +34,7 @@ public class GameFragment extends Fragment {
         void updateOptionC();
         void updateOptionD();
         void updateCorrectAnswer();
+        void spawnQuestInFragment();
     }
 
     public void updateQuestion(){
@@ -38,6 +44,7 @@ public class GameFragment extends Fragment {
 //        listener.updateOptionC();
 //        listener.updateOptionD();
 //        listener.updateQuestion();
+
     }
 
     public static GameFragment newInstance (String quest,String A,String B,String C,String D, String correct){
@@ -65,6 +72,9 @@ public class GameFragment extends Fragment {
         optionC = item.findViewById(R.id.optionC);
         optionD = item.findViewById(R.id.optionD);
 
+        red = Color.parseColor("#FF0000");
+        green = Color.parseColor("#4FECAE");
+
         if(getArguments() != null){
             questionText = getArguments().getString("quest");
             opA = getArguments().getString("A");
@@ -80,10 +90,92 @@ public class GameFragment extends Fragment {
         optionC.setText(opC);
         optionD.setText(opD);
 
+        getAnswer();
+
+
         return item;
+
+
     }
 
-    
+    public void getAnswer(){
+        optionA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (correct.equals("A")){
+                    greenify("A");
+                } else {
+                   // optionA.setText(correct);
+                    greenify("D");
+                    redify("A");
+                }
+            }
+        });
+
+        optionB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (correct.equals("B")){
+                    greenify("B");
+                } else {
+                    // optionA.setText(correct);
+                    greenify(correct);
+                    redify("B");
+                }
+            }
+        });
+
+        optionC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (correct.equals("C")){
+                    greenify("C");
+                } else {
+                    // optionA.setText(correct);
+                    greenify(correct);
+                    redify("C");
+                }
+            }
+        });
+
+        optionD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (correct.equals("D")){
+                    greenify("D");
+                } else {
+                    // optionA.setText(correct);
+                    greenify(correct);
+                    redify("D");
+                }
+            }
+        });
+    }
+
+    public void greenify(String option){
+        if (option.equals("A")){
+            optionA.setBackgroundColor(green);
+        } else if (option.equals("B")){
+            optionB.setBackgroundColor(green);
+        } else if (option.equals("C")){
+            optionC.setBackgroundColor(green);
+        } else if (option.equals("D")){
+            optionD.setBackgroundColor(green);
+        }
+    }
+
+    public void redify(String option){
+        if (option.equals("A")){
+            optionA.setBackgroundColor(red);
+        } else if (option.equals("B")){
+            optionB.setBackgroundColor(red);
+        } else if (option.equals("C")){
+            optionC.setBackgroundColor(red);
+        } else if (option.equals("D")){
+            optionD.setBackgroundColor(red);
+        }
+    }
+
 
     @Override
     public void onAttach(Context context) {

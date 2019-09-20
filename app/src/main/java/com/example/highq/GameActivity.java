@@ -28,6 +28,7 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
 
     //Index for the questions being printed
     int index;
+    int score;
 
     BeginFragment beginFragment;
     FinishFragment finishFragment;
@@ -66,6 +67,14 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
         nextButton = findViewById(R.id.next_button);
 
         index=-1;
+        score=0;
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spawnNextQuestion();
+            }
+        });
        // onRetrieveData();
 
     }
@@ -110,7 +119,38 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
     public void startGame() {
         onRetrieveData();
 
-        spawnNextQuestion();
+        spawnFirstQuestion();
+    }
+
+    public void spawnFirstQuestion(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (index >= 3){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_id,finishFragment)
+                            .commit();
+                } else {
+
+                    index++;
+                    current = questList.get(index);
+                    // current = new Question("something","A","B","C","D","A");
+
+                    gameFragment = GameFragment.newInstance(current.getQuestion(), current.getOptionA(), current.getOptionB(), current.getOptionC(), current.getOptionD(), current.getCorrectAnswer());
+                    //gameFragment.updateQuestion();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_id, gameFragment)
+                            .commit();
+                }
+            }
+        },2000);
+
+    }
+
+    @Override
+    public void spawnQuestInFragment() {
+
     }
 
     public void spawnNextQuestion(){
@@ -118,18 +158,23 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                index++;
-                current = questList.get(index);
-                // current = new Question("something","A","B","C","D","A");
+                if (index >= 3){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_id,finishFragment)
+                            .commit();
+                } else {
+                    index++;
+                    current = questList.get(index);
+                    // current = new Question("something","A","B","C","D","A");
 
-                gameFragment = GameFragment.newInstance(current.getQuestion(),current.getOptionA(),current.getOptionB(),current.getOptionC(),current.getOptionD(),current.getCorrectAnswer());
-                //gameFragment.updateQuestion();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_id,gameFragment)
-                        .commit();
+                    gameFragment = GameFragment.newInstance(current.getQuestion(), current.getOptionA(), current.getOptionB(), current.getOptionC(), current.getOptionD(), current.getCorrectAnswer());
+                    //gameFragment.updateQuestion();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_id, gameFragment)
+                            .commit();
+                }
             }
         },2000);
-
     }
 
     @Override
