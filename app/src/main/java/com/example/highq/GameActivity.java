@@ -28,7 +28,7 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
 
     //Index for the questions being printed
     int index;
-    int score;
+    int currScore;
 
     BeginFragment beginFragment;
     FinishFragment finishFragment;
@@ -51,7 +51,7 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
         topicView.setText(topicName);
 
         beginFragment = new BeginFragment();
-        finishFragment = new FinishFragment();
+        //finishFragment = new FinishFragment();
        // gameFragment = new GameFragment();
 
         getSupportFragmentManager().beginTransaction()
@@ -67,7 +67,7 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
         nextButton = findViewById(R.id.next_button);
 
         index=-1;
-        score=0;
+        currScore=0;
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,9 +128,13 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
             @Override
             public void run() {
                 if (index >= 3){
+                    finishFragment = FinishFragment.newInstance(Integer.toString(currScore));
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_id,finishFragment)
                             .commit();
+
+                    myRef = database.getReference();
+                    myRef.child("score").setValue(currScore);
                 } else {
 
                     index++;
@@ -159,6 +163,7 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
             @Override
             public void run() {
                 if (index >= 3){
+                    finishFragment = FinishFragment.newInstance(Integer.toString(currScore));
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_id,finishFragment)
                             .commit();
@@ -175,6 +180,11 @@ public class GameActivity extends AppCompatActivity implements BeginFragment.beg
                 }
             }
         },2000);
+    }
+
+    @Override
+    public void updateScore(int score) {
+        currScore+=score;
     }
 
     @Override

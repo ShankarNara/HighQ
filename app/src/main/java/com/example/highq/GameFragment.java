@@ -22,10 +22,11 @@ public class GameFragment extends Fragment {
 
 
 
-    int red,green;
+    int red,green,score;
     String correct,questionText,opA,opB,opC,opD;
     String userAnswer;
     gameInterface listener;
+
 
     public interface gameInterface{
         void updateQuestion();
@@ -35,6 +36,7 @@ public class GameFragment extends Fragment {
         void updateOptionD();
         void updateCorrectAnswer();
         void spawnQuestInFragment();
+        void updateScore(int score);
     }
 
     public void updateQuestion(){
@@ -90,6 +92,7 @@ public class GameFragment extends Fragment {
         optionC.setText(opC);
         optionD.setText(opD);
 
+        score=0;
         getAnswer();
 
 
@@ -103,7 +106,7 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (correct.equals("A")){
-                    greenify("A");
+                    listener.updateScore(10);
                 } else {
                    // optionA.setText(correct);
                     greenify("D");
@@ -117,6 +120,7 @@ public class GameFragment extends Fragment {
             public void onClick(View v) {
                 if (correct.equals("B")){
                     greenify("B");
+                    listener.updateScore(10);
                 } else {
                     // optionA.setText(correct);
                     greenify(correct);
@@ -129,6 +133,7 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (correct.equals("C")){
+                    listener.updateScore(10);
                     greenify("C");
                 } else {
                     // optionA.setText(correct);
@@ -142,6 +147,7 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (correct.equals("D")){
+                    listener.updateScore(10);
                     greenify("D");
                 } else {
                     // optionA.setText(correct);

@@ -14,10 +14,19 @@ import androidx.fragment.app.Fragment;
 public class FinishFragment extends Fragment {
 
     TextView finishText;
+    TextView scoreText;
     public finishInterface listener;
 
     public interface finishInterface{
         void finishGame();
+    }
+
+    public static FinishFragment newInstance(String score){
+        FinishFragment fragment = new FinishFragment();
+        Bundle args = new Bundle();
+        args.putString("score",score);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
@@ -27,6 +36,12 @@ public class FinishFragment extends Fragment {
         View itemView = inflater.inflate(R.layout.finish_fragment,container,false);
 
         finishText = (TextView) itemView.findViewById(R.id.finish_text);
+
+        scoreText = itemView.findViewById(R.id.score_text);
+        if(getArguments() != null){
+            scoreText.setText("SCORE : "+getArguments().getString("score"));
+        }
+
 
         finishText.setOnClickListener(new View.OnClickListener() {
             @Override
